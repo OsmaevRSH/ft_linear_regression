@@ -1,7 +1,10 @@
+import model_training
 import parse_csv
-from model_training import traning_model, estimate_price_traning
+from view import my_print
 
 if __name__ == '__main__':
     parse_csv.parse_csv()
-    result = traning_model(parse_csv.traning_data)
-    print(estimate_price_traning(result[0], result[1], 240000))
+    lr = model_training.LinearRegression(parse_csv.traning_data)
+    data = lr.traning_model()
+    my_print(data[0], data[1])
+
