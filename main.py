@@ -13,7 +13,7 @@ if __name__ == '__main__':
     lr = model_training.LinearRegression(data_for_predict, verification_data)
 
     # Метод тренировки модели
-    k0, k1 = lr.traning_model()
+    k0, k1 = lr.training_model()
 
     # Формировние данных из датасета для sklearn
     x = np.array(data_for_predict).reshape((-1, 1))
