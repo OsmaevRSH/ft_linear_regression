@@ -1,17 +1,10 @@
 import matplotlib.pyplot as plt
-import numpy as np
-from numpy import genfromtxt
-
-traning_data = dict()
+from parse_csv import parse_csv
 
 
-def my_print(k0, k1):
+def my_print(k0, k1, ref_k0, ref_k1):
     # Парсинг всех точек датасета
-    traning_set = genfromtxt('data.csv', delimiter=',')
-    traning_set = np.delete(traning_set, 0, 0)
-    traning_set = np.hsplit(traning_set, 2)
-    data_for_predict = np.array(traning_set[0])
-    verification_data = np.array(traning_set[1])
+    data_for_predict, verification_data = parse_csv()
 
     # Отображения точек из датасета
     ax = plt.axes()
@@ -22,10 +15,16 @@ def my_print(k0, k1):
     ax.set_ylabel('prise')
 
     # Используемые коэффициенты
-    print('K0={}, K1={}'.format(k0, k1))
+    print('K0={},     K1={}'.format(k0, k1))
+    print('ref_K0={}, ref_K1={}'.format(ref_k0, ref_k1))
 
-    # Отрисовка прямой
+    # Отрисовка моей линии
     plt.axline((0, k0), slope=k1, color='g')
+
+    # Отрисовка линии полученной с помощью sklearn
+    plt.axline((0, ref_k0), slope=ref_k1, color='b')
+
+    # Отображения холста
     plt.show()
 
 
