@@ -1,30 +1,32 @@
 import matplotlib.pyplot as plt
-import csv
+import numpy as np
+from numpy import genfromtxt
 
 traning_data = dict()
 
 
 def my_print(k0, k1):
-    fig = plt.figure()
-    # plt.axis([0, 10, 0, 10])
-    plt.grid(True)
-    for key in traning_data:
-        plt.scatter(key, traning_data[key], s=100, marker='o')
-    plt.axline((-k0, 0), slope=k1, color='r')
+    # Парсинг всех точек датасета
+    traning_set = genfromtxt('data.csv', delimiter=',')
+    traning_set = np.delete(traning_set, 0, 0)
+    traning_set = np.hsplit(traning_set, 2)
+    data_for_predict = np.array(traning_set[0])
+    verification_data = np.array(traning_set[1])
+
+    # Отображения точек из датасета
+    ax = plt.axes()
+    ax.scatter(data_for_predict, verification_data, color='r')
+
+    # Иментование осей
+    ax.set_xlabel('millage')
+    ax.set_ylabel('prise')
+
+    # Используемые коэффициенты
+    print('K0={}, K1={}'.format(k0, k1))
+
+    # Отрисовка прямой
+    plt.axline((0, k0), slope=k1, color='g')
     plt.show()
-
-
-with open('data.csv', 'r', newline='') as file_data:
-    reader_data = csv.reader(file_data)
-    next(reader_data)
-    for index in reader_data:
-        traning_data.update({index[0]: index[1]})
-
-with open('save_koef.csv', 'r', newline='') as file_data:
-    reader_data = csv.reader(file_data)
-    for index in reader_data:
-        data = index
-my_print(float(data[0]), float(data[1]))
 
 
 

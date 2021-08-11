@@ -5,7 +5,7 @@ class LinearRegression:
     k_0 = 0.0
     k_1 = 0.0
 
-    def __init__(self, data_for_predict: np.ndarray, verification_data: np.ndarray, learning_rate=0.1):
+    def __init__(self, data_for_predict: np.ndarray, verification_data: np.ndarray, learning_rate=0.000000000001):
         self.__data_for_predict = data_for_predict
         self.__verification_data = verification_data
         self.__trannig_set_size = verification_data.size
