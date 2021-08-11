@@ -1,60 +1,39 @@
+import numpy as np
+
+
 class LinearRegression:
     k_0 = 0.0
     k_1 = 0.0
 
-    def __init__(self, traning_data: dict, learning_rate=0.01):
-        """
-        Конструктор
-        :param traning_data: словарь для обучения модели [millage, price]
-        :param learning_rate: скорость обучения
-        """
-        self.__traning_data = traning_data
+    def __init__(self, data_for_predict: np.ndarray, verification_data: np.ndarray, learning_rate=0.01):
+        self.__data_for_predict = data_for_predict
+        self.__verification_data = verification_data
+        self.__trannig_set_size = verification_data.size
         self.__learning_rate = learning_rate
 
     def predict_price(self, millage):
-        """
-        Метод для предсказания цены
-        :param millage: Текущий пробег
-        :return: Предсказанная цена
-        """
         predicted_price = self.k_0 + self.k_1 * millage
         return predicted_price
 
     def __error(self, millage, price):
-        """
-        Метод для расчета ошибки предсказания
-        :param millage: Текущий пробег
-        :param price: Ожидаемая цена
-        :return: Ошибка
-        """
         error = self.predict_price(millage) - price
         return error
 
     def __calculation_k_0(self):
-        """
-        Метод расчета нулевого (свободного) коэффициента
-        :return: Расчитанный нулевой коэффициент
-        """
-        result = 0
-        for key in self.__traning_data:
-            result += self.__error(key, self.__traning_data[key])
-        middle_error = result / self.__traning_data.__len__()
+        all_errors = self.__error(self.__data_for_predict, self.__verification_data)
+        sum_errors = np.sum(all_errors)
+        middle_error = sum_errors / self.__trannig_set_size
         return self.__learning_rate * middle_error
 
     def __calculation_k_1(self):
-        """
-        Метод расчета первого коэффициента
-        :return: Расчитанный первый коэффициент
-        """
-        result = 0
-        for key in self.__traning_data:
-            result += self.__error(key, self.__traning_data[key]) * key
-        middle_error = result / self.__traning_data.__len__()
+        all_errors = self.__error(self.__data_for_predict, self.__verification_data) * self.__data_for_predict
+        sum_errors = np.sum(all_errors)
+        middle_error = sum_errors / self.__trannig_set_size
         return self.__learning_rate * middle_error
 
     def traning_model(self):
-        for i in range(10):
-            for _ in self.__traning_data:
+        for i in range(1):
+            for _ in range(self.__trannig_set_size):
                 tmp_k_0 = self.k_0 - self.__calculation_k_0()
                 tmp_k_1 = self.k_1 - self.__calculation_k_1()
                 print(tmp_k_0, tmp_k_1)

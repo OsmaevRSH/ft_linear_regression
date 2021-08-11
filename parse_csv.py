@@ -1,14 +1,11 @@
-import csv
+import numpy as np
+from numpy import genfromtxt
 
-traning_data = dict()
 
-
-def parse_csv(filename='data.csv'):
-    """
-        Метод парсинга файла с выбокой, для обучения модели
-    """
-    with open(filename, 'r', newline='') as file:
-        reader = csv.reader(file)
-        next(reader)
-        for rows in reader:
-            traning_data.update({int(rows[0]): int(rows[1])})
+def parse_csv():
+    traning_set = genfromtxt('data.csv', delimiter=',')
+    traning_set = np.delete(traning_set, 0, 0)
+    traning_set = np.hsplit(traning_set, 2)
+    data_for_predict = np.array(traning_set[0])
+    verification_data = np.array(traning_set[1])
+    return data_for_predict, verification_data
