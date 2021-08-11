@@ -15,7 +15,7 @@ if __name__ == '__main__':
     # Метод тренировки модели
     k0, k1 = lr.traning_model()
 
-    # Формировние данных датасета для sklearn
+    # Формировние данных из датасета для sklearn
     x = np.array(data_for_predict).reshape((-1, 1))
     y = np.array(verification_data)
 

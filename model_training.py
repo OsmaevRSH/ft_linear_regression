@@ -37,6 +37,5 @@ class LinearRegression:
                 self.k_0 = tmp_k_0
                 self.k_1 = tmp_k_1
                 print(self.k_0, self.k_1)
-        print(self.k_0, self.k_1)
         return self.k_0, self.k_1
 
