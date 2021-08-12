@@ -2,7 +2,7 @@ import csv
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from view import my_print
-import model_training
+import linear_regression
 import parse_csv
 
 if __name__ == '__main__':
@@ -10,7 +10,7 @@ if __name__ == '__main__':
     data_for_predict, verification_data = parse_csv.parse_csv()
 
     # Создание объекта класса линейной регрессии
-    lr = model_training.LinearRegression(data_for_predict, verification_data)
+    lr = linear_regression.LinearRegression(data_for_predict, verification_data)
 
     # Метод тренировки модели
     k0, k1 = lr.training_model()
