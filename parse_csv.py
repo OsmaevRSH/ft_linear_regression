@@ -4,7 +4,7 @@ from numpy import genfromtxt
 
 def parse_csv():
     # Открыте файла с датасетом
-    training_set = genfromtxt('test_data.csv', delimiter=',')
+    training_set = genfromtxt('data.csv', delimiter=',')
 
     # Удаление первой строки с названием столбцов
     training_set = np.delete(training_set, 0, 0)

@@ -32,6 +32,3 @@ def my_print(k0, k1, ref_k0, ref_k1):
 
     # Отображения холста
     plt.show()
-
-
-

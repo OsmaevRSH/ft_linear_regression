@@ -37,7 +37,6 @@ class LinearRegression:
 
     def training_model(self):
         while self.__mse() > self.__accuracy:
-            test = self.__mse()
             for _ in range(self.__training_set_size):
                 tmp_k_0 = self.k_0 - self.__calculation_k_0()
                 tmp_k_1 = self.k_1 - self.__calculation_k_1()
@@ -45,4 +44,3 @@ class LinearRegression:
                 self.k_1 = tmp_k_1
                 print(self.k_0, self.k_1)
         return self.k_0, self.k_1
-
