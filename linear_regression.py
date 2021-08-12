@@ -5,7 +5,6 @@ class LinearRegression:
     k_0 = 0.0
     k_1 = 0.0
     __accuracy = 0.48
-    __procs = []
 
     def __init__(self, data_for_predict: np.ndarray, verification_data: np.ndarray, learning_rate=0.1):
         self.__data_for_predict = data_for_predict
