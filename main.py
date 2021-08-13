@@ -1,5 +1,4 @@
 import csv
-import numpy as np
 from sklearn.linear_model import LinearRegression
 from view import my_print
 import linear_regression

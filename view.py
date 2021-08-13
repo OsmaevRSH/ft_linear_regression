@@ -8,6 +8,7 @@ def my_print(k0, k1, ref_k0, ref_k1):
 
     fig = plt.figure()
     ax = plt.axes()
+
     plt.grid(b='true')
 
     # Отображения точек из датасета

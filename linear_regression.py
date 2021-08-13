@@ -6,12 +6,20 @@ class LinearRegression:
     k_0 = 0.0
     k_1 = 0.0
 
-    def __init__(self, data_for_predict: np.ndarray, verification_data: np.ndarray, learning_rate=0.01):
+    def __init__(self, data_for_predict: np.ndarray, verification_data: np.ndarray, learning_rate=0.001):
         self.__data_for_predict = data_for_predict
         self.__verification_data = verification_data
         self.__training_set_size = verification_data.size
         self.__learning_rate = learning_rate
         self.__z_normalize_data()
+        # self.__data_scaler()
+
+    def __data_scaler(self):
+        min_element = np.min(self.__data_for_predict)
+        self.__data_for_predict += math.fabs(min_element)
+
+        min_element = np.min(self.__verification_data)
+        self.__verification_data += math.fabs(min_element)
 
     @staticmethod
     def __dispersion(data: np.ndarray):
