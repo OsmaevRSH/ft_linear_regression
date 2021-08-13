@@ -4,15 +4,15 @@ import pandas as pd
 
 def parse_csv():
     # Открыте файла с датасетом
-    df_train = pd.read_csv('datasets/test_data.csv')
+    dataset = pd.read_csv('datasets/test_data.csv')
 
-    x_train = df_train['x']
-    y_train = df_train['y']
+    x_dataset = dataset['x']
+    y_dataset = dataset['y']
 
-    x_train = np.array(x_train)
-    y_train = np.array(y_train)
+    x_dataset = np.array(x_dataset)
+    y_dataset = np.array(y_dataset)
 
-    x_train = x_train.reshape(-1, 1)
-    y_train = y_train.reshape(-1, 1)
+    x_dataset = x_dataset.reshape(-1, 1)
+    y_dataset = y_dataset.reshape(-1, 1)
 
-    return x_train, y_train
+    return x_dataset, y_dataset
