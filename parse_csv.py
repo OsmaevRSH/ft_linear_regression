@@ -4,7 +4,7 @@ import pandas as pd
 
 def parse_csv():
     # Открыте файла с датасетом
-    df_train = pd.read_csv('datasets/second_data.csv')
+    df_train = pd.read_csv('datasets/test_data.csv')
 
     x_train = df_train['x']
     y_train = df_train['y']
