@@ -15,12 +15,8 @@ if __name__ == '__main__':
     # Метод тренировки модели
     k0, k1 = lr.training_model()
 
-    # Формировние данных из датасета для sklearn
-    x = np.array(data_for_predict).reshape((-1, 1))
-    y = np.array(verification_data)
-
     # Обучение модели и получение коэффициентов с помощью sklearn
-    model = LinearRegression().fit(x, y)
+    model = LinearRegression().fit(data_for_predict, verification_data)
 
     # Создание (открытие) файлы для сохранение полученных коэффицентов
     with open('save_koef.csv', 'w') as f:
