@@ -6,16 +6,21 @@ import parse_csv
 
 if __name__ == '__main__':
     # Парсинг датасета для обучения
-    data_for_predict, verification_data = parse_csv.parse_csv()
+    x_dataset, y_dataset = parse_csv.parse_csv()
 
     # Создание объекта класса линейной регрессии
-    lr = linear_regression.LinearRegression(data_for_predict, verification_data)
+    lr = linear_regression.LinearRegression(x_dataset, y_dataset)
 
     # Метод тренировки модели
     k0, k1 = lr.training_model()
 
+    print('my predict = {}'.format(lr.predict_price(x_dataset)))
+
     # Обучение модели и получение коэффициентов с помощью sklearn
-    model = LinearRegression().fit(data_for_predict, verification_data)
+    model = LinearRegression()
+    model.fit(x_dataset, y_dataset)
+
+    print('sklearn predict = {}'.format(model.predict(x_dataset)))
 
     # Создание (открытие) файлы для сохранение полученных коэффицентов
     with open('save_koef.csv', 'w') as f:
