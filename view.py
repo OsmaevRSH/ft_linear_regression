@@ -1,11 +1,8 @@
 import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib.ticker import MultipleLocator, AutoMinorLocator
-
 from parse_csv import parse_csv
 
 
-def my_print(k0, k1, ref_k0, ref_k1):
+def my_print(k0, k1, ref_k0, ref_k1, x):
     # Парсинг всех точек датасета
     data_for_predict, verification_data = parse_csv()
 
@@ -15,7 +12,7 @@ def my_print(k0, k1, ref_k0, ref_k1):
     plt.grid(b='true')
 
     # Отображения точек из датасета
-    ax.scatter(data_for_predict, verification_data, color='g')
+    ax.scatter(x, verification_data, color='g')
 
     # Иментование осей
     ax.set_xlabel('millage')
