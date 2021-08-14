@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     # Обучение модели и получение коэффициентов с помощью sklearn
     model = LinearRegression()
-    model.fit(x_dataset, y_dataset)
+    model.fit(x_standard_dataset, y_dataset)
 
     print('sklearn predict = {}'.format(model.predict(x_standard_dataset)))
 
@@ -33,4 +33,4 @@ if __name__ == '__main__':
         writer.writerow([float(k0), float(k1)])
 
     # Графическое отображение
-    my_print(float(k0), float(k1), float(model.intercept_), float(model.coef_), x_dataset)
+    my_print(float(k0), float(k1), float(model.intercept_), float(model.coef_), x_standard_dataset)
