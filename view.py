@@ -1,8 +1,10 @@
 import matplotlib.pyplot as plt
+import numpy as np
+
 from parse_csv import parse_csv
 
 
-def my_print(k0, k1, ref_k0, ref_k1, x):
+def my_print(k0, k1, ref_k0, ref_k1, lr, model):
     # Парсинг всех точек датасета
     data_for_predict, verification_data = parse_csv()
 
@@ -12,7 +14,7 @@ def my_print(k0, k1, ref_k0, ref_k1, x):
     plt.grid(b='true')
 
     # Отображения точек из датасета
-    ax.scatter(x, verification_data, color='g')
+    ax.scatter(data_for_predict, verification_data, color='g')
 
     # Иментование осей
     ax.set_xlabel('millage')
@@ -22,10 +24,18 @@ def my_print(k0, k1, ref_k0, ref_k1, x):
     print('K0={},     K1={}, y = {}X + {}'.format(k0, k1, k1, k0))
     print('ref_K0={}, ref_K1={}, y = {}X + {}'.format(ref_k0, ref_k1, ref_k1, ref_k0))
 
-    # Отрисовка моей линии
-    plt.axline((0, k0), slope=k1, color='y', label='ltheresi liner regression')
+    index = np.max(data_for_predict)
+    a = float(index)
+    b = float(lr.predict(a))
 
-    # Отрисовка линии полученной с помощью sklearn
+    index = np.min(data_for_predict)
+    c = float(index)
+    d = float(lr.predict(c))
+
+    # Отрисовка моей линии
+    plt.axline([c, d], [a, b], color='y', label='ltheresi liner regression')
+    #
+    # # Отрисовка линии полученной с помощью sklearn
     plt.axline((0, ref_k0), slope=ref_k1, color='b', label='sklearn liner regression', linestyle='dashed')
 
     # Отображение легенды

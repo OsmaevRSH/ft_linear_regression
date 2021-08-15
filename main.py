@@ -16,16 +16,15 @@ if __name__ == '__main__':
     k0, k1 = lr.training_model()
 
     # sklern z-standard
-    standard_scaler = StandardScaler().fit(x_dataset)
-    x_standard_dataset = standard_scaler.transform(x_dataset)
+    x_standard_dataset = StandardScaler().fit_transform(x_dataset)
 
     print('my predict = {}'.format(lr.predict(x_dataset)))
 
     # Обучение модели и получение коэффициентов с помощью sklearn
     model = LinearRegression()
-    model.fit(x_standard_dataset, y_dataset)
+    model.fit(x_dataset, y_dataset)
 
-    print('sklearn predict = {}'.format(model.predict(x_standard_dataset)))
+    print('sklearn predict = {}'.format(model.predict(x_dataset)))
 
     # Создание (открытие) файла для сохранение полученных коэффицентов
     with open('save_koef.csv', 'w') as f:
@@ -33,4 +32,4 @@ if __name__ == '__main__':
         writer.writerow([float(k0), float(k1)])
 
     # Графическое отображение
-    my_print(float(k0), float(k1), float(model.intercept_), float(model.coef_), x_standard_dataset)
+    my_print(float(k0), float(k1), float(model.intercept_), float(model.coef_), lr, model)
