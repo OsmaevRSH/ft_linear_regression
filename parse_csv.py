@@ -4,7 +4,7 @@ import pandas as pd
 
 def parse_csv():
     # Открыте файла с датасетом
-    dataset = pd.read_csv('datasets/outstanding_dataset.csv')
+    dataset = pd.read_csv('datasets/big_dataset.csv')
 
     x_dataset = dataset['x']
     y_dataset = dataset['y']

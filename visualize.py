@@ -4,7 +4,7 @@ import numpy as np
 from parse_csv import parse_csv
 
 
-def my_print(k0, k1, ref_k0, ref_k1, lr, model):
+def visualize(k0, k1, ref_k0, ref_k1, lr, model):
     # Парсинг всех точек датасета
     data_for_predict, verification_data = parse_csv()
 
@@ -44,3 +44,19 @@ def my_print(k0, k1, ref_k0, ref_k1, lr, model):
 
     # Отображения холста
     plt.show()
+
+
+if __name__ == '__main__':
+    pass
+    # sklern z-standard
+    # x_standard_dataset = StandardScaler().fit_transform(x_dataset)
+
+    # Обучение модели и получение весов с помощью sklearn
+    # model = LinearRegression()
+    # model.fit(x_dataset, y_dataset)
+
+    # print('my predict = {}'.format(lr.predict(x_dataset)))
+    # print('sklearn predict = {}'.format(model.predict(x_dataset)))
+    # arguments = len(sys.argv) - 1
+    # print("The script is called with %i arguments" % (arguments))
+    # visualize()
