@@ -13,7 +13,7 @@ if __name__ == '__main__':
     lr = linear_regression.LinearRegression(x_dataset, y_dataset)
 
     # Метод тренировки модели
-    k0, k1 = lr.training_model()
+    k0, k1 = lr.fit()
 
     # sklern z-standard
     x_standard_dataset = StandardScaler().fit_transform(x_dataset)
