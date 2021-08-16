@@ -78,7 +78,7 @@ if __name__ == '__main__':
     if len(sys.argv) - 1 > 0:
         if sys.argv.__contains__('--visualize'):
             visualize_data = True
-        if sys.argv.__contains__('--sklearn'):
+        if sys.argv.__contains__('--visualize_sk'):
             sklearn_visualize = True
         if sys.argv.__contains__('--visualize_train'):
             train_visualize = True
