@@ -1,12 +1,13 @@
 import sys
-
 import pandas as pd
 from visualize import visualize
 
 
 class Predictor:
-
     def __init__(self):
+        """
+        Конструктор
+        """
         self.__predicted_value = 0.0
         self.__k_0 = 0.0
         self.__k_1 = 0.0
@@ -14,6 +15,9 @@ class Predictor:
         self.__mean = 0.0
 
     def __parse_coefficients(self):
+        """
+        Метод для парсинга коэффициентов полученных после тренировки модели
+        """
         try:
             coefficients = pd.read_csv('coefficients.csv')
             self.__k_0 = float(coefficients['k_0'])
@@ -30,6 +34,11 @@ class Predictor:
             raise
 
     def predict(self, data):
+        """
+        Метод для средсказания зависимой переменной
+        :param data: Независимая переменная, на основе которой происходит предсказание
+        :return: Предсказанное значение
+        """
         try:
             self.__parse_coefficients()
             self.__predicted_value = self.__k_0 + ((data - self.__mean) / self.__dispersion) * self.__k_1
@@ -39,24 +48,27 @@ class Predictor:
             return self.__predicted_value
 
     def visualize_data(self):
-        visualize(self.predict, value_for_predict)
+        """
+        Метод визуализации
+        """
+        visualize(self.predict, value_for_predict, sklearn_visualize)
 
 
 if __name__ == '__main__':
     visualize_data = False
+    sklearn_visualize = False
 
     if len(sys.argv) - 1 > 0:
-        if sys.argv[1] == '--visualize':
+        if sys.argv.__contains__('--visualize'):
             visualize_data = True
+        if sys.argv.__contains__('--sklearn'):
+            sklearn_visualize = True
     try:
         pr = Predictor()
         value_for_predict = float(input('Enter value for predict: '))
         predicted_value = pr.predict(value_for_predict)
+        print('Predicted data = {}'.format(predicted_value))
         if predicted_value != 0 and visualize_data:
             pr.visualize_data()
-    except ValueError:
-        print('You entered invalid data for predict!')
     except Exception as e:
         print(str(e))
-    else:
-        print('Predicted data = {}'.format(predicted_value))
