@@ -13,10 +13,10 @@ class LinearRegression:
         self.__x_dataset = x_dataset
         self.__y_dataset = y_dataset
         self.__learning_rate = learning_rate
-        self.__x_mean = 0
-        self.__x_dispersion = 0
-        self.__k_0 = 0.0
-        self.__k_1 = 0.0
+        self.x_mean = 0
+        self.x_dispersion = 0
+        self.k_0 = 0.0
+        self.k_1 = 0.0
         self.__mse_error = np.zeros(1).reshape(-1, 1)
         self.__z_standardization()
 
@@ -34,10 +34,10 @@ class LinearRegression:
         Метод z-стандартизации для __x_dataset
         :return: Стандартизированный датасет
         """
-        self.__x_dispersion = math.sqrt(self.__dispersion())
-        self.__x_mean = self.__x_dataset.mean()
-        self.__x_dataset = (self.__x_dataset - self.__x_mean)
-        self.__x_dataset /= self.__x_dispersion
+        self.x_dispersion = math.sqrt(self.__dispersion())
+        self.x_mean = self.__x_dataset.mean()
+        self.__x_dataset = (self.__x_dataset - self.x_mean)
+        self.__x_dataset /= self.x_dispersion
 
     def __predict_price(self, x):
         """
@@ -45,7 +45,7 @@ class LinearRegression:
         :param x: Независимая переменная, по которой происходит предсказание
         :return: Предсказанная цена
         """
-        predicted_price = self.__k_0 + self.__k_1 * x
+        predicted_price = self.k_0 + self.k_1 * x
         return predicted_price
 
     def __mse(self):
@@ -90,9 +90,9 @@ class LinearRegression:
         :param x: Стандартизируемая переменная
         :return: Значение переменной после стандартизации
         """
-        return (x - self.__x_mean) / self.__x_dispersion
+        return (x - self.x_mean) / self.x_dispersion
 
-    def fit(self):
+    def fit(self, logging_status):
         """
         Метод обучения модели
         """
@@ -102,20 +102,12 @@ class LinearRegression:
         while math.fabs(delta_mse) > 0.000001:
             tmp_k_0 = self.__learning_rate * self.__calculation_k_0()
             tmp_k_1 = self.__learning_rate * self.__calculation_k_1()
-            self.__k_0 -= tmp_k_0
-            self.__k_1 -= tmp_k_1
+            self.k_0 -= tmp_k_0
+            self.k_1 -= tmp_k_1
             delta_mse = old_mse - self.__mse()
             old_mse = self.__mse()
             self.__mse_error = np.append(self.__mse_error, self.__mse())
-            print('population={}, k0={}, k1={}, mse={}, learningRate={}'
-                  .format(population, self.__k_0, self.__k_1, self.__mse(), self.__learning_rate))
-            population += 1
-        return self.__k_0, self.__k_1
-
-    def predict(self, x):
-        """
-        Метод для предсказания цены
-        :param x: Независимая переменная, по которой происходит предсказание
-        :return: Предсказанное значение
-        """
-        return self.__k_0 + (self.__standard_var(x) * self.__k_1)
+            if logging_status:
+                print('population={}, k0={}, k1={}, mse={}, learningRate={}'
+                      .format(population, self.k_0, self.k_1, self.__mse(), self.__learning_rate))
+                population += 1

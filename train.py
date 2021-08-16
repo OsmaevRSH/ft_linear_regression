@@ -1,12 +1,10 @@
 import csv
+import sys
 import linear_regression
 import parse_csv
 
 
 def train():
-
-    # todo Добавиль включение и отключение лога
-
     # Парсинг датасета для обучения
     x_dataset, y_dataset = parse_csv.parse_csv()
 
@@ -14,13 +12,18 @@ def train():
     lr = linear_regression.LinearRegression(x_dataset, y_dataset)
 
     # Метод тренировки модели
-    k0, k1 = lr.fit()
+    lr.fit(logging_status)
 
     # Создание (открытие) файла для сохранение полученных коэффицентов
     with open('coefficients.csv', 'w') as f:
         writer = csv.writer(f)
-        writer.writerow([float(k0), float(k1)])
+        writer.writerow([float(lr.k_0), float(lr.k_1)])
 
 
 if __name__ == '__main__':
+    logging_status = False
+
+    if len(sys.argv) - 1 > 0:
+        if sys.argv[1] == '--log':
+            logging_status = True
     train()
