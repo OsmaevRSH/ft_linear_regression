@@ -1,6 +1,6 @@
 all:
 	python3 -m venv .
-	pip install -r requirements.txt
+	pip3 install -r requirements.txt
 
 train:
 	python3 train.py
@@ -15,7 +15,7 @@ visualize:
 	python3 predictor.py --visualize
 
 visualize_sk:
-	python3 predictor.py --visualize_sk
+	python3 predictor.py --visualize --visualize_sk
 
 r2:
 	python3 predictor.py --r2
