@@ -17,7 +17,7 @@ def train():
     k0, k1 = lr.fit()
 
     # Создание (открытие) файла для сохранение полученных коэффицентов
-    with open('save_koef.csv', 'w') as f:
+    with open('coefficients.csv', 'w') as f:
         writer = csv.writer(f)
         writer.writerow([float(k0), float(k1)])
 
