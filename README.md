@@ -1,10 +1,5 @@
-**_1. Test data_**\
-`learning_rate = 0.1`\
-`accuracy = 0.48`
+**_1. Train_**\
+`--log - Includes logging of weights during training`
 
-**_2. Subject data_**\
-`learning_rate = 0.01`\
-`accuracy = 0.48`
-
-k0=1.9243865760169388e-16, k1=-0.8561394207905018, mse=0.2558992383281492
-k0=2.2019423321732277e-16, k1=-0.8561394207905018, mse=0.2670252921685035
+**_2. Predictor_**\
+`--visualize - Adds visualization`

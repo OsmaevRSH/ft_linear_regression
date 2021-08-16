@@ -1,10 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
 from parse_csv import parse_csv
 
 
-def visualize(k0, k1, ref_k0, ref_k1, lr, model):
+def visualize(funk, predict_value):
     # Парсинг всех точек датасета
     data_for_predict, verification_data = parse_csv()
 
@@ -15,28 +14,29 @@ def visualize(k0, k1, ref_k0, ref_k1, lr, model):
 
     # Отображения точек из датасета
     ax.scatter(data_for_predict, verification_data, color='g')
+    ax.scatter(predict_value, funk(predict_value), color='r')
 
     # Иментование осей
     ax.set_xlabel('millage')
     ax.set_ylabel('prise')
 
     # Используемые коэффициенты
-    print('K0={},     K1={}, y = {}X + {}'.format(k0, k1, k1, k0))
-    print('ref_K0={}, ref_K1={}, y = {}X + {}'.format(ref_k0, ref_k1, ref_k1, ref_k0))
+    # print('K0={},     K1={}, y = {}X + {}'.format(k0, k1, k1, k0))
+    # print('ref_K0={}, ref_K1={}, y = {}X + {}'.format(ref_k0, ref_k1, ref_k1, ref_k0))
 
     index = np.max(data_for_predict)
     a = float(index)
-    b = float(lr.predict(a))
+    b = float(funk(a))
 
     index = np.min(data_for_predict)
     c = float(index)
-    d = float(lr.predict(c))
+    d = float(funk(c))
 
     # Отрисовка моей линии
     plt.axline([c, d], [a, b], color='y', label='ltheresi liner regression')
     #
     # # Отрисовка линии полученной с помощью sklearn
-    plt.axline((0, ref_k0), slope=ref_k1, color='b', label='sklearn liner regression', linestyle='dashed')
+    # plt.axline((0, ref_k0), slope=ref_k1, color='b', label='sklearn liner regression', linestyle='dashed')
 
     # Отображение легенды
     lines, labels = fig.axes[-1].get_legend_handles_labels()
@@ -45,9 +45,6 @@ def visualize(k0, k1, ref_k0, ref_k1, lr, model):
     # Отображения холста
     plt.show()
 
-
-if __name__ == '__main__':
-    pass
     # sklern z-standard
     # x_standard_dataset = StandardScaler().fit_transform(x_dataset)
 
