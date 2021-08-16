@@ -1,5 +1,9 @@
 import sys
+
+import numpy as np
 import pandas as pd
+
+from parse_csv import parse_csv
 from visualize import visualize, visualize_train
 
 
@@ -59,11 +63,17 @@ class Predictor:
         """
         visualize_train(self.__mean, self.__dispersion)
 
+    def r2(self):
+        x, y = parse_csv()
+        r_2 = np.sum(np.power(self.predict(x) - y.mean(), 2)) / np.sum(np.power(y - y.mean(), 2))
+        return r_2
+
 
 if __name__ == '__main__':
     visualize_data = False
     sklearn_visualize = False
     train_visualize = False
+    r2 = False
 
     if len(sys.argv) - 1 > 0:
         if sys.argv.__contains__('--visualize'):
@@ -72,10 +82,15 @@ if __name__ == '__main__':
             sklearn_visualize = True
         if sys.argv.__contains__('--visualize_train'):
             train_visualize = True
+        if sys.argv.__contains__('--r2'):
+            r2 = True
     try:
         pr = Predictor()
         if train_visualize:
             pr.visualize_train()
+            exit(0)
+        if r2:
+            print('R2 = {}'.format(pr.r2()))
             exit(0)
         value_for_predict = float(input('Enter value for predict: '))
         predicted_value = pr.predict(value_for_predict)
