@@ -1,6 +1,6 @@
 import sys
 import pandas as pd
-from visualize import visualize
+from visualize import visualize, visualize_train
 
 
 class Predictor:
@@ -13,13 +13,14 @@ class Predictor:
         self.__k_1 = 0.0
         self.__dispersion = 0.0
         self.__mean = 0.0
+        self.__parse_coefficients()
 
     def __parse_coefficients(self):
         """
         Метод для парсинга коэффициентов полученных после тренировки модели
         """
         try:
-            coefficients = pd.read_csv('coefficients.csv')
+            coefficients = pd.read_csv('predict_coefficients.csv')
             self.__k_0 = float(coefficients['k_0'])
             self.__k_1 = float(coefficients['k_1'])
             self.__dispersion = float(coefficients['dispersion'])
@@ -40,7 +41,6 @@ class Predictor:
         :return: Предсказанное значение
         """
         try:
-            self.__parse_coefficients()
             self.__predicted_value = self.__k_0 + ((data - self.__mean) / self.__dispersion) * self.__k_1
         except Exception:
             raise
@@ -53,18 +53,30 @@ class Predictor:
         """
         visualize(self.predict, value_for_predict, sklearn_visualize)
 
+    def visualize_train(self):
+        """
+        Метод визуализации
+        """
+        visualize_train(self.__mean, self.__dispersion)
+
 
 if __name__ == '__main__':
     visualize_data = False
     sklearn_visualize = False
+    train_visualize = False
 
     if len(sys.argv) - 1 > 0:
         if sys.argv.__contains__('--visualize'):
             visualize_data = True
         if sys.argv.__contains__('--sklearn'):
             sklearn_visualize = True
+        if sys.argv.__contains__('--visualize_train'):
+            train_visualize = True
     try:
         pr = Predictor()
+        if train_visualize:
+            pr.visualize_train()
+            exit(0)
         value_for_predict = float(input('Enter value for predict: '))
         predicted_value = pr.predict(value_for_predict)
         print('Predicted data = {}'.format(predicted_value))

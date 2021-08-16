@@ -1,5 +1,6 @@
 import math
 import numpy as np
+import pandas as pd
 
 
 class LinearRegression:
@@ -15,8 +16,8 @@ class LinearRegression:
         self.__learning_rate = learning_rate
         self.x_mean = 0
         self.x_dispersion = 0
-        self.k_0 = 0.0
-        self.k_1 = 0.0
+        self.k_0 = np.zeros(1).reshape(-1, 1)
+        self.k_1 = np.zeros(1).reshape(-1, 1)
         self.__mse_error = np.zeros(1).reshape(-1, 1)
         self.__z_standardization()
 
@@ -45,7 +46,7 @@ class LinearRegression:
         :param x: Независимая переменная, по которой происходит предсказание
         :return: Предсказанная цена
         """
-        predicted_price = self.k_0 + self.k_1 * x
+        predicted_price = self.k_0[-1] + self.k_1[-1] * x
         return predicted_price
 
     def __mse(self):
@@ -102,12 +103,17 @@ class LinearRegression:
         while math.fabs(delta_mse) > 0.000001:
             tmp_k_0 = self.__learning_rate * self.__calculation_k_0()
             tmp_k_1 = self.__learning_rate * self.__calculation_k_1()
-            self.k_0 -= tmp_k_0
-            self.k_1 -= tmp_k_1
+            self.k_0 = np.append(self.k_0, self.k_0[-1] - tmp_k_0)
+            self.k_1 = np.append(self.k_1, self.k_1[-1] - tmp_k_1)
             delta_mse = old_mse - self.__mse()
             old_mse = self.__mse()
             self.__mse_error = np.append(self.__mse_error, self.__mse())
             if logging_status:
                 print('population={}, k0={}, k1={}, mse={}, learningRate={}'
-                      .format(population, self.k_0, self.k_1, self.__mse(), self.__learning_rate))
+                      .format(population, self.k_0[-1], self.k_1[-1], self.__mse(), self.__learning_rate))
                 population += 1
+
+        df = pd.DataFrame({'k_0': self.k_0,
+                           'k_1': self.k_1})
+
+        df.to_csv('coefficients.csv', index=False)

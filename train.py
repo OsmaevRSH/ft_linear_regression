@@ -14,12 +14,12 @@ def train():
     # Метод тренировки модели
     lr.fit(logging_status)
 
-    df = pd.DataFrame({'k_0': [lr.k_0],
-                       'k_1': [lr.k_1],
+    df = pd.DataFrame({'k_0': [lr.k_0[-1]],
+                       'k_1': [lr.k_1[-1]],
                        'dispersion': [lr.x_dispersion],
                        'mean': [lr.x_mean]})
 
-    df.to_csv('coefficients.csv', index=False)
+    df.to_csv('predict_coefficients.csv', index=False)
 
 
 if __name__ == '__main__':
