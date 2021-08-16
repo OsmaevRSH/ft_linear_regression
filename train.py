@@ -1,5 +1,5 @@
-import csv
 import sys
+import pandas as pd
 import linear_regression
 import parse_csv
 
@@ -14,10 +14,12 @@ def train():
     # Метод тренировки модели
     lr.fit(logging_status)
 
-    # Создание (открытие) файла для сохранение полученных коэффицентов
-    with open('coefficients.csv', 'w') as f:
-        writer = csv.writer(f)
-        writer.writerow([float(lr.k_0), float(lr.k_1)])
+    df = pd.DataFrame({'k_0': [lr.k_0],
+                       'k_1': [lr.k_1],
+                       'dispersion': [lr.x_dispersion],
+                       'mean': [lr.x_mean]})
+
+    df.to_csv('coefficients.csv', index=False)
 
 
 if __name__ == '__main__':
