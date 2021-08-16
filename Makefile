@@ -1,6 +1,6 @@
 all:
-	python3 -m venv .
-	pip3 install -r requirements.txt
+	python3 -m venv ./venv/
+	pip3 install -r requirements.txt -f ./venv/
 
 train:
 	python3 train.py
