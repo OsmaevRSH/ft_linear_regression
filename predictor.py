@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 from parse_csv import parse_csv
-from visualize import visualize, visualize_train
+from visualize import visualize, visualize_train, visualize_mse
 
 
 class Predictor:
@@ -74,6 +74,7 @@ if __name__ == '__main__':
     sklearn_visualize = False
     train_visualize = False
     r2 = False
+    loss = False
 
     if len(sys.argv) - 1 > 0:
         if sys.argv.__contains__('--visualize'):
@@ -84,6 +85,8 @@ if __name__ == '__main__':
             train_visualize = True
         if sys.argv.__contains__('--r2'):
             r2 = True
+        if sys.argv.__contains__('--loss'):
+            loss = True
     try:
         pr = Predictor()
         if train_visualize:
@@ -91,6 +94,9 @@ if __name__ == '__main__':
             exit(0)
         if r2:
             print('R2 = {}'.format(pr.r2()))
+            exit(0)
+        if loss:
+            visualize_mse()
             exit(0)
         value_for_predict = float(input('Enter value for predict: '))
         predicted_value = pr.predict(value_for_predict)

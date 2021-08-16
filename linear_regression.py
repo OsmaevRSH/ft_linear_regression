@@ -115,5 +115,7 @@ class LinearRegression:
 
         df = pd.DataFrame({'k_0': self.k_0,
                            'k_1': self.k_1})
-
         df.to_csv('coefficients.csv', index=False)
+
+        df = pd.DataFrame({'mse': self.__mse_error})
+        df.to_csv('mse.csv', index=False)

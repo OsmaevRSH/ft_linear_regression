@@ -23,4 +23,7 @@ r2:
 visualize_train:
 	python3 predictor.py --visualize_train
 
-.PHONY: all train train_with_log predict visualize visualize_sk r2 visualize_train
+loss:
+	python3 predictor.py --loss
+
+.PHONY: all train train_with_log predict visualize visualize_sk r2 visualize_train loss

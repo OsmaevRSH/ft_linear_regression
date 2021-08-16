@@ -6,4 +6,5 @@
 `--visualize - Adds visualization`\
 `--visualize_sk - Adding sklearn to the visualization`\
 `--r2 - Determination coefficient`\
-`--visualize_train - Visualization of eras of learning`
+`--visualize_train - Visualization of eras of learning`\
+`--loss - Visualizes the loss function`

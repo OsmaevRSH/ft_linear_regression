@@ -111,3 +111,21 @@ def visualize_train(mean, dispersion):
     slider_position.on_changed(update)
 
     plt.show()
+
+
+def visualize_mse():
+    mse = pd.read_csv('mse.csv')
+    errors = np.array(mse['mse']).flatten()
+    indexes = np.arange(start=0, stop=errors.size, step=1)
+    plot_array = np.column_stack([indexes[1:], errors[1:]])
+    fig = plt.figure()
+    ax = plt.axes()
+
+    ax.set_xlabel('Epochs')
+    ax.set_ylabel('MSE')
+
+    ax.grid(b='true')
+
+    plt.plot(plot_array[:, 0], plot_array[:, 1], '-b')
+
+    plt.show()
