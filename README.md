@@ -9,5 +9,5 @@
 `--visualize_train - Visualization of eras of learning`\
 `--loss - Visualizes the loss function`
 
-#Start:
+# Start:
 For install venv and requirements use `make`
