@@ -8,3 +8,6 @@
 `--r2 - Determination coefficient`\
 `--visualize_train - Visualization of eras of learning`\
 `--loss - Visualizes the loss function`
+
+#Start:
+For install venv and requirements use `make`

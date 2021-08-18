@@ -85,14 +85,6 @@ class LinearRegression:
         middle_error = all_errors.mean()
         return middle_error
 
-    def __standard_var(self, x):
-        """
-        Метод для стандартизации значения переменной
-        :param x: Стандартизируемая переменная
-        :return: Значение переменной после стандартизации
-        """
-        return (x - self.x_mean) / self.x_dispersion
-
     def fit(self, logging_status):
         """
         Метод обучения модели
